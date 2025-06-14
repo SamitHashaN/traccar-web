@@ -37,6 +37,12 @@ const useStyles = makeStyles()((theme) => ({
     backgroundColor: 'white',
     borderRadius: '16px',
     boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+      gap: theme.spacing(2),
+      borderRadius: '8px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+    },
   },
   input: {
     '& .MuiOutlinedInput-root': {
@@ -64,6 +70,10 @@ const useStyles = makeStyles()((theme) => ({
     '&:hover': {
       boxShadow: '0 6px 8px rgba(0,0,0,0.15)',
     },
+    [theme.breakpoints.down('sm')]: {
+      height: '44px',
+      fontSize: '0.95rem',
+    },
   },
   extraContainer: {
     display: 'flex',
@@ -86,12 +96,19 @@ const useStyles = makeStyles()((theme) => ({
     color: theme.palette.primary.main,
     textAlign: 'center',
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.25rem',
+    },
   },
   subtitle: {
     fontSize: '0.875rem',
     color: theme.palette.text.secondary,
     textAlign: 'center',
     marginBottom: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.8rem',
+      marginBottom: theme.spacing(2),
+    },
   },
 }));
 

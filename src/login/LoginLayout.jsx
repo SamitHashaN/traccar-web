@@ -16,6 +16,12 @@ const useStyles = makeStyles()((theme) => ({
     background: '#f5f7fa',
     position: 'relative',
     overflow: 'hidden',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+      height: 'auto',
+      minHeight: '100vh',
+      overflow: 'visible',
+    },
   },
   backgroundPattern: {
     display: 'none',
@@ -24,14 +30,19 @@ const useStyles = makeStyles()((theme) => ({
     flex: 1.2,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: theme.spacing(6, 4),
+    padding: theme.spacing(4, 4, 2, 4),
     background: 'linear-gradient(135deg, #1a237e 0%, #1976d2 100%)',
     color: '#fff',
     position: 'relative',
     minWidth: 0,
     zIndex: 1,
+    overflowY: 'auto',
+    minHeight: '100vh',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
   },
   rightPanel: {
     flex: 1,
@@ -43,6 +54,12 @@ const useStyles = makeStyles()((theme) => ({
     position: 'relative',
     zIndex: 2,
     background: 'transparent',
+    minHeight: '100vh',
+    [theme.breakpoints.down('md')]: {
+      minHeight: '100vh',
+      padding: theme.spacing(2),
+      justifyContent: 'center',
+    },
   },
   infoContainer: {
     maxWidth: '500px',
@@ -54,6 +71,7 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    paddingTop: theme.spacing(4),
   },
   featuresGrid: {
     display: 'grid',
@@ -106,6 +124,9 @@ const useStyles = makeStyles()((theme) => ({
     color: '#fff',
     letterSpacing: '-1px',
     textShadow: '0 2px 8px rgba(0,0,0,0.10)',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.5rem',
+    },
   },
   subtitle: {
     fontSize: '1.1rem',
@@ -114,6 +135,9 @@ const useStyles = makeStyles()((theme) => ({
     marginBottom: theme.spacing(3),
     fontWeight: 400,
     textShadow: '0 1px 4px rgba(0,0,0,0.08)',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.95rem',
+    },
   },
   formContainer: {
     width: '100%',
@@ -122,24 +146,32 @@ const useStyles = makeStyles()((theme) => ({
     backgroundColor: '#fff',
     borderRadius: '16px',
     boxShadow: '0 8px 32px rgba(0,0,0,0.13)',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '95vw',
+      padding: theme.spacing(2),
+      borderRadius: '10px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
+    },
   },
   footer: {
     width: '100%',
     maxWidth: 700,
-    margin: '48px auto 0 auto',
-    paddingTop: theme.spacing(4),
+    margin: '32px auto 0 auto',
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
     borderTop: '1px solid rgba(255,255,255,0.15)',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: theme.spacing(4),
     color: '#fff',
-    fontSize: '1rem',
+    fontSize: '0.9rem',
     [theme.breakpoints.down('lg')]: {
       flexDirection: 'column',
       gap: theme.spacing(2),
       maxWidth: '100%',
-      fontSize: '0.95rem',
+      fontSize: '0.85rem',
+      margin: '24px auto 0 auto',
     },
   },
   footerCol: {
