@@ -1,16 +1,30 @@
 import { useTheme, useMediaQuery } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { makeStyles } from 'tss-react/mui';
-import Logo from '../resources/images/logo.svg?react';
 
 const useStyles = makeStyles()((theme) => ({
   image: {
     alignSelf: 'center',
-    maxWidth: '240px',
+    maxWidth: '120px',
     maxHeight: '120px',
-    width: 'auto',
-    height: 'auto',
+    width: '120px',
+    height: '120px',
     margin: theme.spacing(2),
+    borderRadius: '50%',
+    objectFit: 'cover',
+    border: '4px solid white',
+    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    transition: 'all 0.3s ease',
+    '&:hover': {
+      transform: 'scale(1.05)',
+      boxShadow: '0 6px 12px rgba(0,0,0,0.15)',
+    },
+  },
+  logoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 
@@ -25,11 +39,25 @@ const LogoImage = ({ color }) => {
 
   if (logo) {
     if (expanded && logoInverted) {
-      return <img className={classes.image} src={logoInverted} alt="" />;
+      return (
+        <div className={classes.logoContainer}>
+          <img className={classes.image} src={logoInverted} alt="CityTrack" />
+        </div>
+      );
     }
-    return <img className={classes.image} src={logo} alt="" />;
+    return (
+      <div className={classes.logoContainer}>
+        <img className={classes.image} src={logo} alt="CityTrack" />
+      </div>
+    );
   }
-  return <Logo className={classes.image} style={{ color }} />;
+  
+  // Default to our new logo if no server logo is provided
+  return (
+    <div className={classes.logoContainer}>
+      <img className={classes.image} src="/city.jpg" alt="CityTrack" />
+    </div>
+  );
 };
 
 export default LogoImage;

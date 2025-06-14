@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
-  useMediaQuery, Select, MenuItem, FormControl, Button, TextField, Link, Snackbar, IconButton, Tooltip, Box,
+  useMediaQuery, Select, MenuItem, FormControl, Button, TextField, Link, Snackbar, IconButton, Tooltip, Box, Typography,
 } from '@mui/material';
 import ReactCountryFlag from 'react-country-flag';
 import { makeStyles } from 'tss-react/mui';
@@ -32,7 +32,38 @@ const useStyles = makeStyles()((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(2),
+    gap: theme.spacing(3),
+    padding: theme.spacing(3),
+    backgroundColor: 'white',
+    borderRadius: '16px',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+  },
+  input: {
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '8px',
+      backgroundColor: '#f8f9fa',
+      '&:hover': {
+        backgroundColor: '#fff',
+      },
+      '&.Mui-focused': {
+        backgroundColor: '#fff',
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: theme.palette.primary.main,
+          borderWidth: '2px',
+        },
+      },
+    },
+  },
+  button: {
+    height: '48px',
+    borderRadius: '8px',
+    textTransform: 'none',
+    fontSize: '1rem',
+    fontWeight: 600,
+    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    '&:hover': {
+      boxShadow: '0 6px 8px rgba(0,0,0,0.15)',
+    },
   },
   extraContainer: {
     display: 'flex',
@@ -41,11 +72,26 @@ const useStyles = makeStyles()((theme) => ({
     gap: theme.spacing(4),
     marginTop: theme.spacing(2),
   },
-  registerButton: {
-    minWidth: 'unset',
-  },
   link: {
     cursor: 'pointer',
+    color: theme.palette.primary.main,
+    fontWeight: 500,
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+  title: {
+    fontSize: '1.5rem',
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+    textAlign: 'center',
+    marginBottom: theme.spacing(1),
+  },
+  subtitle: {
+    fontSize: '0.875rem',
+    color: theme.palette.text.secondary,
+    textAlign: 'center',
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -60,7 +106,6 @@ const LoginPage = () => {
   const languageList = Object.entries(languages).map((values) => ({ code: values[0], country: values[1].country, name: values[1].name }));
 
   const [failed, setFailed] = useState(false);
-
   const [email, setEmail] = usePersistedState('loginEmail', '');
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
@@ -108,8 +153,6 @@ const LoginPage = () => {
       const user = await response.json();
       dispatch(sessionActions.updateUser(user));
       navigate('/');
-    } else {
-      throw Error(await response.text());
     }
   });
 
@@ -168,7 +211,10 @@ const LoginPage = () => {
       </div>
       <div className={classes.container}>
         {useMediaQuery(theme.breakpoints.down('lg')) && <LogoImage color={theme.palette.primary.main} />}
+        <Typography className={classes.title}>Welcome Back</Typography>
+        <Typography className={classes.subtitle}>Please sign in to continue</Typography>
         <TextField
+          className={classes.input}
           required
           error={failed}
           label={t('userEmail')}
@@ -180,6 +226,7 @@ const LoginPage = () => {
           helperText={failed && 'Invalid username or password'}
         />
         <TextField
+          className={classes.input}
           required
           error={failed}
           label={t('userPassword')}
@@ -192,6 +239,7 @@ const LoginPage = () => {
         />
         {codeEnabled && (
           <TextField
+            className={classes.input}
             required
             error={failed}
             label={t('loginTotpCode')}
@@ -202,19 +250,21 @@ const LoginPage = () => {
           />
         )}
         <Button
+          className={classes.button}
           onClick={handlePasswordLogin}
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           disabled={!email || !password || (codeEnabled && !code)}
         >
           {t('loginLogin')}
         </Button>
         {openIdEnabled && (
           <Button
+            className={classes.button}
             onClick={() => handleOpenIdLogin()}
-            variant="contained"
-            color="secondary"
+            variant="outlined"
+            color="primary"
           >
             {t('loginOpenId')}
           </Button>
@@ -225,7 +275,7 @@ const LoginPage = () => {
               onClick={() => navigate('/register')}
               className={classes.link}
               underline="none"
-              variant="caption"
+              variant="body2"
             >
               {t('loginRegister')}
             </Link>
@@ -235,7 +285,7 @@ const LoginPage = () => {
               onClick={() => navigate('/reset-password')}
               className={classes.link}
               underline="none"
-              variant="caption"
+              variant="body2"
             >
               {t('loginReset')}
             </Link>
