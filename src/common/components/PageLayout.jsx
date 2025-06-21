@@ -9,6 +9,7 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Box,
 } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -47,6 +48,37 @@ const useStyles = makeStyles()((theme, { miniVariant }) => ({
     display: 'flex',
     flexDirection: 'column',
     overflowY: 'auto',
+  },
+  brandingSection: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+    gap: theme.spacing(2),
+  },
+  logo: {
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    objectFit: 'cover',
+    border: '2px solid rgba(255, 255, 255, 0.3)',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+  },
+  companyInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    color: '#ffffff',
+  },
+  companyName: {
+    fontSize: '1.1rem',
+    fontWeight: '700',
+    lineHeight: 1.2,
+    letterSpacing: '0.5px',
+  },
+  companySubtitle: {
+    fontSize: '0.75rem',
+    opacity: 0.9,
+    fontWeight: '500',
+    marginTop: '2px',
   },
 }));
 
@@ -94,6 +126,25 @@ const PageLayout = ({ menu, breadcrumbs, children }) => {
         className={classes.desktopDrawer}
         classes={{ paper: classes.desktopDrawer }}
       >
+        {/* Company Branding Header */}
+        {!miniVariant && (
+          <Box className={classes.brandingSection}>
+            <img 
+              src="/city.jpg" 
+              alt="CityTrack Logo" 
+              className={classes.logo}
+            />
+            <Box className={classes.companyInfo}>
+              <Typography className={classes.companyName}>
+                CITY TRACK
+              </Typography>
+              <Typography className={classes.companySubtitle}>
+                GPS PVT(LTD)
+              </Typography>
+            </Box>
+          </Box>
+        )}
+        
         <Toolbar>
           {!miniVariant && (
             <>
@@ -122,6 +173,23 @@ const PageLayout = ({ menu, breadcrumbs, children }) => {
         onClose={() => setOpenDrawer(false)}
         classes={{ paper: classes.mobileDrawer }}
       >
+        {/* Company Branding Header - Mobile */}
+        <Box className={classes.brandingSection}>
+          <img 
+            src="/city.jpg" 
+            alt="CityTrack Logo" 
+            className={classes.logo}
+          />
+          <Box className={classes.companyInfo}>
+            <Typography className={classes.companyName}>
+              CITY TRACK
+            </Typography>
+            <Typography className={classes.companySubtitle}>
+              GPS PVT(LTD)
+            </Typography>
+          </Box>
+        </Box>
+        <Divider />
         {menu}
       </Drawer>
       <AppBar className={classes.mobileToolbar} position="static" color="inherit">
