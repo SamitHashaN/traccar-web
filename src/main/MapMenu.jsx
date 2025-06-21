@@ -23,9 +23,9 @@ const MapMenu = () => {
       <List>
         <MenuItem
           title={t('dashboardTitle')}
-          link="/"
+          link="/dashboard"
           icon={<DashboardIcon />}
-          selected={location.pathname === '/' || location.pathname === '/dashboard'}
+          selected={location.pathname === '/dashboard'}
         />
         {!disableReports && (
           <MenuItem

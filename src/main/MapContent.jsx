@@ -28,9 +28,10 @@ const useStyles = makeStyles()((theme) => ({
   deviceListDesktop: {
     position: 'fixed',
     right: theme.spacing(2),
-    top: theme.spacing(2),
     bottom: theme.spacing(2),
+    // bottom: theme.spacing(2),
     width: '350px',
+    height: '400px',
     zIndex: 5,
     display: 'flex',
     flexDirection: 'column',
@@ -42,7 +43,7 @@ const useStyles = makeStyles()((theme) => ({
   deviceListDesktopCollapsed: {
     position: 'fixed',
     right: theme.spacing(2),
-    top: theme.spacing(2),
+    bottom: theme.spacing(2),
     width: '60px',
     height: '60px',
     zIndex: 5,
