@@ -28,7 +28,7 @@ export default {
       },
       containedPrimary: {
         '&:hover': {
-          backgroundColor: '#004ba0',
+          backgroundColor: ({ theme }) => theme.palette.primary.dark,
         },
       },
     },
@@ -36,7 +36,7 @@ export default {
   MuiAppBar: {
     styleOverrides: {
       root: ({ theme }) => ({
-        backgroundColor: '#1976d2', // Strong CityTrack blue header
+        backgroundColor: theme.palette.primary.main, // Uses palette instead of hardcoded
         color: '#ffffff',
         boxShadow: '0 2px 8px rgba(25, 118, 210, 0.3)',
       }),
@@ -60,8 +60,8 @@ export default {
   },
   MuiDrawer: {
     styleOverrides: {
-      paper: {
-        backgroundColor: '#1976d2', // Blue sidebar
+      paper: ({ theme }) => ({
+        backgroundColor: theme.palette.primary.main, // Uses palette instead of hardcoded
         color: '#ffffff',
         border: 'none',
         '& .MuiListItemIcon-root': {
@@ -81,7 +81,7 @@ export default {
             },
           },
         },
-      },
+      }),
     },
   },
   MuiFormControl: {
@@ -105,28 +105,28 @@ export default {
   },
   MuiTabs: {
     styleOverrides: {
-      root: {
+      root: ({ theme }) => ({
         '& .MuiTab-root': {
-          color: '#1976d2',
+          color: theme.palette.primary.main,
           fontWeight: 600,
           '&.Mui-selected': {
-            color: '#1976d2',
+            color: theme.palette.primary.main,
           },
         },
         '& .MuiTabs-indicator': {
-          backgroundColor: '#1976d2',
+          backgroundColor: theme.palette.primary.main,
           height: 3,
         },
-      },
+      }),
     },
   },
   MuiIconButton: {
     styleOverrides: {
-      root: {
+      root: ({ theme }) => ({
         '&.MuiIconButton-colorPrimary': {
-          color: '#1976d2',
+          color: theme.palette.primary.main,
         },
-      },
+      }),
     },
   },
 };

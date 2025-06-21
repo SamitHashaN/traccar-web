@@ -9,9 +9,9 @@ export default (server, darkMode) => ({
     paper: darkMode ? grey[800] : '#ffffff',
   },
   primary: {
-    main: darkMode ? '#63a4ff' : '#1976d2',
-    light: darkMode ? '#80d6ff' : '#63a4ff',
-    dark: darkMode ? '#0077c2' : '#004ba0',
+    main: darkMode ? '#63a4ff' : '#1a237e',
+    light: darkMode ? '#80d6ff' : '#1565c0',
+    dark: darkMode ? '#0077c2' : '#1565c0',
   },
   secondary: {
     main: darkMode ? '#80d6ff' : '#42a5f5',

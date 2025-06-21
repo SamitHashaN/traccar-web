@@ -4,19 +4,39 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Paper, BottomNavigation, BottomNavigationAction, Menu, MenuItem, Typography, Badge,
 } from '@mui/material';
+import { makeStyles } from 'tss-react/mui';
 
 import DescriptionIcon from '@mui/icons-material/Description';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MapIcon from '@mui/icons-material/Map';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 import { sessionActions } from '../../store';
 import { useTranslation } from './LocalizationProvider';
 import { useRestriction } from '../util/permissions';
 import { nativePostMessage } from './NativeInterface';
 
+const useStyles = makeStyles()((theme) => ({
+  bottomNavigation: {
+    '& .MuiBottomNavigationAction-root': {
+      minWidth: 'auto',
+      padding: theme.spacing(0.5, 0.5),
+      '& .MuiBottomNavigationAction-label': {
+        fontSize: '0.65rem',
+        lineHeight: 1.2,
+        marginTop: theme.spacing(0.25),
+        '&.Mui-selected': {
+          fontSize: '0.65rem',
+        },
+      },
+    },
+  },
+}));
+
 const BottomMenu = () => {
+  const { classes } = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -36,7 +56,9 @@ const BottomMenu = () => {
       return 'settings';
     } if (location.pathname.startsWith('/reports')) {
       return 'reports';
-    } if (location.pathname === '/') {
+    } if (location.pathname === '/dashboard' || location.pathname === '/') {
+      return 'dashboard';
+    } if (location.pathname === '/map') {
       return 'map';
     }
     return null;
@@ -78,8 +100,11 @@ const BottomMenu = () => {
 
   const handleSelection = (event, value) => {
     switch (value) {
+      case 'dashboard':
+        navigate('/dashboard');
+        break;
       case 'map':
-        navigate('/');
+        navigate('/map');
         break;
       case 'reports':
         navigate('/reports/combined');
@@ -100,9 +125,19 @@ const BottomMenu = () => {
 
   return (
     <Paper square elevation={3}>
-      <BottomNavigation value={currentSelection()} onChange={handleSelection} showLabels>
+      <BottomNavigation 
+        value={currentSelection()} 
+        onChange={handleSelection} 
+        showLabels
+        className={classes.bottomNavigation}
+      >
         <BottomNavigationAction
-          label={t('mapTitle')}
+          label={t('dashboardShort')}
+          icon={<DashboardIcon />}
+          value="dashboard"
+        />
+        <BottomNavigationAction
+          label={t('mapShort')}
           icon={(
             <Badge color="error" variant="dot" overlap="circular" invisible={socket !== false}>
               <MapIcon />
@@ -111,13 +146,13 @@ const BottomMenu = () => {
           value="map"
         />
         {!disableReports && (
-          <BottomNavigationAction label={t('reportTitle')} icon={<DescriptionIcon />} value="reports" />
+          <BottomNavigationAction label={t('reportShort')} icon={<DescriptionIcon />} value="reports" />
         )}
-        <BottomNavigationAction label={t('settingsTitle')} icon={<SettingsIcon />} value="settings" />
+        <BottomNavigationAction label={t('settingsShort')} icon={<SettingsIcon />} value="settings" />
         {readonly ? (
           <BottomNavigationAction label={t('loginLogout')} icon={<ExitToAppIcon />} value="logout" />
         ) : (
-          <BottomNavigationAction label={t('settingsUser')} icon={<PersonIcon />} value="account" />
+          <BottomNavigationAction label={t('accountShort')} icon={<PersonIcon />} value="account" />
         )}
       </BottomNavigation>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>

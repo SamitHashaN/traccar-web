@@ -60,6 +60,7 @@ import EmulatorPage from './other/EmulatorPage';
 import Loader from './common/components/Loader';
 import { generateLoginToken } from './common/components/NativeInterface';
 import { useLocalization } from './common/components/LocalizationProvider';
+import DashboardPage from './dashboard/DashboardPage';
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -90,7 +91,7 @@ const Navigation = () => {
       } else {
         throw Error(await response.text());
       }
-      navigate('/');
+      navigate('/map');
     } else if (query.get('eventId')) {
       const eventId = parseInt(query.get('eventId'), 10);
       navigate(`/event/${eventId}`);
@@ -114,7 +115,9 @@ const Navigation = () => {
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/change-server" element={<ChangeServerPage />} />
       <Route path="/" element={<App />}>
-        <Route index element={<MainPage />} />
+        <Route index element={<DashboardPage />} />
+        <Route path="map" element={<MainPage />} />
+        <Route path="dashboard" element={<DashboardPage />} />
 
         <Route path="position/:id" element={<PositionPage />} />
         <Route path="network/:positionId" element={<NetworkPage />} />

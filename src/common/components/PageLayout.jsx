@@ -14,7 +14,7 @@ import { makeStyles } from 'tss-react/mui';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from './LocalizationProvider';
 import BackIcon from './BackIcon';
 
@@ -76,12 +76,16 @@ const PageLayout = ({ menu, breadcrumbs, children }) => {
   const { classes } = useStyles({ miniVariant });
   const theme = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const toggleDrawer = () => setMiniVariant(!miniVariant);
+
+  // Check if we're on the dashboard page
+  const isDashboardPage = location.pathname === '/' || location.pathname === '/dashboard';
 
   return desktop ? (
     <div className={classes.desktopRoot}>
@@ -93,9 +97,11 @@ const PageLayout = ({ menu, breadcrumbs, children }) => {
         <Toolbar>
           {!miniVariant && (
             <>
-              <IconButton color="inherit" edge="start" sx={{ mr: 2 }} onClick={() => navigate('/')}>
-                <BackIcon />
-              </IconButton>
+              {!isDashboardPage && (
+                <IconButton color="inherit" edge="start" sx={{ mr: 2 }} onClick={() => navigate('/')}>
+                  <BackIcon />
+                </IconButton>
+              )}
               <PageTitle breadcrumbs={breadcrumbs} />
             </>
           )}
